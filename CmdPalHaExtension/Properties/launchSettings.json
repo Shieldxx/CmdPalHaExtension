@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CmdPalHaExtension (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "CmdPalHaExtension (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
