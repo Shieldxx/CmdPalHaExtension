@@ -17,6 +17,7 @@ public partial class CmdPalHaExtensionCommandsProvider : CommandProvider
     private readonly SettingsManager _settingsManager = new();
     private readonly ICommandItem[] _commands;
     private readonly HaDockBand _dockBand = new();
+    private readonly ICommandItem _dockItem;
 
     public CmdPalHaExtensionCommandsProvider()
     {
@@ -35,9 +36,20 @@ public partial class CmdPalHaExtensionCommandsProvider : CommandProvider
             },
         ];
 
+        // Persistent CommandItem wrapping the DynamicListPage dock band.
+        // Returning the same instance avoids a full dock re-render on each entity update.
+        _dockItem = new CommandItem(_dockBand)
+        {
+            Title = "Home Assistant",
+            Icon = MdiIconProvider.GetDomainDefaultIcon("home"),
+        };
+
         _settingsManager.SettingsUpdated += OnSettingsUpdated;
 
         FavoritesManager.Load();
+        // Re-query GetDockBands() only when favorites are added/removed (rare).
+        // Entity state updates are handled by HaDockBand itself via RaiseItemsChanged().
+        FavoritesManager.FavoritesChanged += () => RaiseItemsChanged(0);
         ConfigureClient();
     }
 
@@ -68,6 +80,6 @@ public partial class CmdPalHaExtensionCommandsProvider : CommandProvider
             return null;
         }
 
-        return [_dockBand.CreateDockItem()];
+        return [_dockItem];
     }
 }

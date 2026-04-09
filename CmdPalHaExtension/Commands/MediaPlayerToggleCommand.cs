@@ -33,7 +33,7 @@ internal sealed partial class MediaPlayerToggleCommand : InvokableCommand
         _ = Task.Run(async () =>
         {
             await HaClient.CallServiceAsync("media_player", "media_play_pause", _entity.EntityId).ConfigureAwait(false);
-            await EntityCache.RefreshAsync().ConfigureAwait(false);
+            await EntityCache.RefreshAfterCommandAsync().ConfigureAwait(false);
         });
         return CommandResult.ShowToast($"Toggled {name}");
     }

@@ -49,7 +49,7 @@ internal sealed partial class ActivateEntityCommand : InvokableCommand
         _ = Task.Run(async () =>
         {
             await HaClient.CallServiceAsync(_domain, service, _entity.EntityId).ConfigureAwait(false);
-            await EntityCache.RefreshAsync().ConfigureAwait(false);
+            await EntityCache.RefreshAfterCommandAsync().ConfigureAwait(false);
         });
         return CommandResult.ShowToast($"Activated {name}");
     }

@@ -23,6 +23,31 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\icons\light-on.svg" />
+    <Content Include="Assets\icons\light-off.svg" />
+    <Content Include="Assets\icons\switch-on.svg" />
+    <Content Include="Assets\icons\switch-off.svg" />
+    <Content Include="Assets\icons\scene.svg" />
+    <Content Include="Assets\icons\climate.svg" />
+    <Content Include="Assets\icons\climate-off.svg" />
+    <Content Include="Assets\icons\cover-open.svg" />
+    <Content Include="Assets\icons\cover-closed.svg" />
+    <Content Include="Assets\icons\fan-on.svg" />
+    <Content Include="Assets\icons\fan-off.svg" />
+    <Content Include="Assets\icons\media-playing.svg" />
+    <Content Include="Assets\icons\media-idle.svg" />
+    <Content Include="Assets\icons\automation-on.svg" />
+    <Content Include="Assets\icons\automation-off.svg" />
+    <Content Include="Assets\icons\script.svg" />
+    <Content Include="Assets\icons\lock-locked.svg" />
+    <Content Include="Assets\icons\lock-open.svg" />
+    <Content Include="Assets\icons\vacuum-on.svg" />
+    <Content Include="Assets\icons\vacuum-off.svg" />
+    <Content Include="Assets\icons\toggle-on.svg" />
+    <Content Include="Assets\icons\toggle-off.svg" />
+    <Content Include="Assets\icons\button.svg" />
+    <Content Include="Assets\icons\home.svg" />
+    <Content Include="Assets\icons\unavailable.svg" />
   </ItemGroup>
 
   <ItemGroup>

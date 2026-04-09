@@ -10,23 +10,34 @@ using Microsoft.CommandPalette.Extensions.Toolkit;
 
 namespace CmdPalHaExtension.Dock;
 
-internal sealed partial class HaDockBand
+/// <summary>
+/// A DynamicListPage used as a dock band. Command Palette renders each IListItem
+/// returned from GetItems() as an individual dock button. Calling RaiseItemsChanged()
+/// on this page updates only the HA dock band without re-rendering other extensions.
+/// </summary>
+internal sealed partial class HaDockBand : DynamicListPage
 {
-    private readonly ListItem[] _emptyItems = [];
-
-    public ICommandItem CreateDockItem()
+    public HaDockBand()
     {
-        var items = BuildItems();
-        var dockItem = new WrappedDockItem(items, "com.cmdpal.ha.favorites", "Home Assistant");
-        return dockItem;
+        Name = "Home Assistant";
+        Icon = MdiIconProvider.GetDomainDefaultIcon("home");
+
+        // Update dock icons/subtitles in-place whenever entity states change.
+        // This only re-renders this page's items, not the whole dock.
+        EntityCache.EntitiesUpdated += OnEntitiesUpdated;
+        FavoritesManager.FavoritesChanged += OnEntitiesUpdated;
     }
 
-    public IListItem[] BuildItems()
+    private void OnEntitiesUpdated() => RaiseItemsChanged();
+
+    public override void UpdateSearchText(string oldSearch, string newSearch) { }
+
+    public override IListItem[] GetItems()
     {
         var favorites = FavoritesManager.GetFavorites();
         if (favorites.Count == 0)
         {
-            return _emptyItems;
+            return [];
         }
 
         var items = new List<IListItem>();
@@ -47,6 +58,6 @@ internal sealed partial class HaDockBand
             });
         }
 
-        return items.ToArray();
+        return [.. items];
     }
 }

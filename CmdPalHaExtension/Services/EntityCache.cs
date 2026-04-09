@@ -36,6 +36,18 @@ internal static class EntityCache
         _refreshTimer = null;
     }
 
+    /// <summary>
+    /// Called after a service command (toggle, activate, etc.).
+    /// Waits briefly for HA to process the command, then forces a fresh fetch.
+    /// </summary>
+    public static async Task RefreshAfterCommandAsync()
+    {
+        await Task.Delay(700).ConfigureAwait(false);
+        // Reset the guard so we always fetch, even if a periodic refresh just ran.
+        Interlocked.Exchange(ref _refreshing, 0);
+        await RefreshAsync().ConfigureAwait(false);
+    }
+
     public static async Task RefreshAsync()
     {
         if (Interlocked.CompareExchange(ref _refreshing, 1, 0) != 0)

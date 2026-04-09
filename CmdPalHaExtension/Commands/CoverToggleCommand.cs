@@ -34,7 +34,7 @@ internal sealed partial class CoverToggleCommand : InvokableCommand
         _ = Task.Run(async () =>
         {
             await HaClient.CallServiceAsync("cover", service, _entity.EntityId).ConfigureAwait(false);
-            await EntityCache.RefreshAsync().ConfigureAwait(false);
+            await EntityCache.RefreshAfterCommandAsync().ConfigureAwait(false);
         });
         return CommandResult.ShowToast($"{(_entity.State == "open" ? "Closing" : "Opening")} {name}");
     }

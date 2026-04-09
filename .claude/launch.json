@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Build Extension (Debug)",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["build", "--configuration", "Debug"],
+      "port": 0
+    }
+  ]
+}

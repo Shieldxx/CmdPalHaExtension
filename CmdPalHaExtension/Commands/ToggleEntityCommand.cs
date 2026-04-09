@@ -35,7 +35,7 @@ internal sealed partial class ToggleEntityCommand : InvokableCommand
         _ = Task.Run(async () =>
         {
             await HaClient.CallServiceAsync(_domain, "toggle", _entity.EntityId).ConfigureAwait(false);
-            await EntityCache.RefreshAsync().ConfigureAwait(false);
+            await EntityCache.RefreshAfterCommandAsync().ConfigureAwait(false);
         });
         return CommandResult.ShowToast($"Toggled {name}");
     }

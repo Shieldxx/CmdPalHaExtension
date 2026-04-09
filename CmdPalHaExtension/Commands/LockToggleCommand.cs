@@ -34,7 +34,7 @@ internal sealed partial class LockToggleCommand : InvokableCommand
         _ = Task.Run(async () =>
         {
             await HaClient.CallServiceAsync("lock", service, _entity.EntityId).ConfigureAwait(false);
-            await EntityCache.RefreshAsync().ConfigureAwait(false);
+            await EntityCache.RefreshAfterCommandAsync().ConfigureAwait(false);
         });
         return CommandResult.ShowToast($"{(service == "lock" ? "Locked" : "Unlocked")} {name}");
     }
